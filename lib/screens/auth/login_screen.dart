@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:contineu/screens/create_account_screen.dart';
-import 'package:contineu/screens/forgot_password_screen.dart';
+import 'package:contineu/screens/auth/create_account_screen.dart';
+import 'package:contineu/screens/auth/forgot_password_screen.dart';
 import 'package:contineu/screens/home_screen.dart';
 import 'package:contineu/services/auth_service.dart';
 import 'package:contineu/widgets/custom_textfield.dart';

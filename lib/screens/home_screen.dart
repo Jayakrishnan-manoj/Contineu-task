@@ -1,5 +1,6 @@
-import 'package:contineu/screens/login_screen.dart';
+import 'package:contineu/screens/auth/login_screen.dart';
 import 'package:contineu/services/auth_service.dart';
+import 'package:contineu/widgets/custom_listtile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,15 +15,89 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      child: Center(
-        child: FilledButton(
-          onPressed: () async {
-            await AuthService().signOut().whenComplete(() {
-              Navigator.of(context).pushReplacement(
-                  CupertinoPageRoute(builder: (context) => LoginScreen()));
-            });
+      navigationBar: CupertinoNavigationBar(
+        border: null,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(
+            CupertinoIcons.settings,
+          ),
+        ),
+        middle: Text(
+          "Contineu Tasks",
+          style: TextStyle(
+            fontSize: 32,
+          ),
+        ),
+        trailing: IconButton(
+          onPressed: () {
+            showCupertinoModalPopup(
+                context: context,
+                builder: (BuildContext builder) {
+                  return CupertinoPopupSurface(
+                    child: AnimatedPadding(
+                      duration: const Duration(milliseconds: 300),
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        color: Colors.white,
+                        height: 500,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 100,
+                              child: CupertinoTextField(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: CupertinoColors.systemGrey5,
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            FilledButton(
+                              onPressed: () {},
+                              child: Text("Add Task"),
+                              style: ButtonStyle(
+                                backgroundColor: WidgetStatePropertyAll(
+                                    CupertinoColors.darkBackgroundGray),
+                                shape: WidgetStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                });
           },
-          child: Text("Signout"),
+          icon: Icon(
+            CupertinoIcons.add_circled,
+          ),
+        ),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          child: ListView(
+            children: [
+              CustomListtile(
+                title: " Some Title",
+              ),
+              // Add more todo items here
+            ],
+          ),
         ),
       ),
     );

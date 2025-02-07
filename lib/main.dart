@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:contineu/screens/home_screen.dart';
-import 'package:contineu/screens/login_screen.dart';
+import 'package:contineu/screens/auth/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,7 +45,10 @@ class _MyAppState extends State<MyApp> {
     return CupertinoApp(
         debugShowCheckedModeBanner: false,
         title: "Cupertino",
-        theme: CupertinoThemeData(brightness: Brightness.light),
+        theme: CupertinoThemeData(
+          brightness: Brightness.light,
+          primaryColor: CupertinoColors.activeBlue,
+        ),
         home: FirebaseAuth.instance.currentUser == null
             ? LoginScreen()
             : HomeScreen());

@@ -1,5 +1,5 @@
 import 'package:contineu/screens/home_screen.dart';
-import 'package:contineu/screens/login_screen.dart';
+import 'package:contineu/screens/auth/login_screen.dart';
 import 'package:contineu/services/auth_service.dart';
 import 'package:contineu/widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
