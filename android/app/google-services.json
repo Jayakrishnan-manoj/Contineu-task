@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "474206682557",
+    "project_id": "contineu-8f1ab",
+    "storage_bucket": "contineu-8f1ab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474206682557:android:c9f656c71d8aa286b2a6d4",
+        "android_client_info": {
+          "package_name": "com.example.contineu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkQs323lK9DjmKsF3sMTtNkR8f0lQn3-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
