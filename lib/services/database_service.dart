@@ -23,4 +23,8 @@ class DatabaseService {
                 })
             .toList());
   }
+
+  Future<void> removeTodo(String id) async {
+    await _db.collection("todos").doc(id).delete();
+  }
 }

@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final DatabaseService _databaseService = DatabaseService();
+  final TextEditingController _todoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class HomeScreen extends StatelessWidget {
                             SizedBox(
                               height: 100,
                               child: CupertinoTextField(
+                                controller: _todoController,
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: CupertinoColors.systemGrey5,
@@ -60,7 +62,14 @@ class HomeScreen extends StatelessWidget {
                               height: 30,
                             ),
                             FilledButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await _databaseService
+                                    .addTodo(_todoController.text)
+                                    .whenComplete(() {
+                                  _todoController.clear();
+                                  Navigator.of(context).pop();
+                                });
+                              },
                               child: Text("Add Task"),
                               style: ButtonStyle(
                                 backgroundColor: WidgetStatePropertyAll(
@@ -105,8 +114,9 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var todo = todos[index];
                     return CustomListtile(
-                      title: todo['title'],
-                    );
+                        title: todo['title'],
+                        onDelete: () =>
+                            _databaseService.removeTodo(todo['id']));
                   });
             },
           ),

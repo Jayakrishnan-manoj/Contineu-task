@@ -5,9 +5,11 @@ class CustomListtile extends StatelessWidget {
   const CustomListtile({
     super.key,
     required this.title,
+    required this.onDelete,
   });
 
   final String title;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +51,9 @@ class CustomListtile extends StatelessWidget {
                     ),
                     CupertinoButton(
                       child: Icon(CupertinoIcons.delete),
-                      onPressed: () {
-                        // Delete task functionality
-                      },
+                      onPressed: () async {
+                        onDelete();
+                      }
                     ),
                   ],
                 ),
