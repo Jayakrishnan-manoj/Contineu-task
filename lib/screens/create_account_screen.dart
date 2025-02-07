@@ -1,4 +1,6 @@
+import 'package:contineu/screens/home_screen.dart';
 import 'package:contineu/screens/login_screen.dart';
+import 'package:contineu/services/auth_service.dart';
 import 'package:contineu/widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -12,13 +14,19 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
-   @override
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.transparent,
         border: null,
-        leading: Text("SIGN UP",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
+        leading: Text(
+          "SIGN UP",
+          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -32,6 +40,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             ),
             CustomCupertinoTextField(
               hintText: "Enter Email",
+              controller: _emailController,
             ),
             SizedBox(
               height: 30,
@@ -39,6 +48,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             CustomCupertinoTextField(
               hintText: "Set a new password",
               isPassword: true,
+              controller: _passwordController,
             ),
             SizedBox(
               height: 40,
@@ -47,7 +57,22 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               width: MediaQuery.sizeOf(context).width,
               height: 50,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await AuthService()
+                      .createAccount(
+                          _emailController.text, _passwordController.text)
+                      .then((value) {
+                    if (value == "signed in") {
+                      Navigator.of(context).pushReplacement(
+                        CupertinoPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    } else {
+                      print(value);
+                    }
+                  });
+                },
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(
                       CupertinoColors.darkBackgroundGray),

@@ -83,7 +83,7 @@ class _CustomCupertinoTextFieldState extends State<CustomCupertinoTextField> {
         border: Border.all(color: CupertinoColors.systemGrey4),
       ),
       maxLines: 1,
-      maxLength: 20,
+      maxLength: widget.isPassword ? 8 : null,
       onChanged: (value) {
         setState(
             () {}); // Updates the UI when text changes (e.g., character count)

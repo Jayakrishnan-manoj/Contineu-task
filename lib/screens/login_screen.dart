@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:contineu/screens/create_account_screen.dart';
+import 'package:contineu/screens/home_screen.dart';
+import 'package:contineu/services/auth_service.dart';
 import 'package:contineu/widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -14,6 +16,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -39,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             CustomCupertinoTextField(
               hintText: "Enter Email",
+              controller: _emailController,
             ),
             SizedBox(
               height: 30,
@@ -46,8 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomCupertinoTextField(
               hintText: "Enter Password",
               isPassword: true,
+              controller: _passwordController,
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               "Forgot Password?",
               textAlign: TextAlign.start,
@@ -64,7 +73,22 @@ class _LoginScreenState extends State<LoginScreen> {
               width: MediaQuery.sizeOf(context).width,
               height: 50,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await AuthService()
+                      .loginWithEmail(
+                          _emailController.text, _passwordController.text)
+                      .then((value) {
+                    if (value == "logged in") {
+                      Navigator.of(context).pushReplacement(
+                        CupertinoPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    } else {
+                      print(value);
+                    }
+                  });
+                },
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(
                       CupertinoColors.darkBackgroundGray),
