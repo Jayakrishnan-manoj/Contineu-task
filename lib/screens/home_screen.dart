@@ -1,17 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contineu/screens/auth/login_screen.dart';
 import 'package:contineu/services/auth_service.dart';
+import 'package:contineu/services/database_service.dart';
 import 'package:contineu/widgets/custom_listtile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  final DatabaseService _databaseService = DatabaseService();
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -90,13 +89,26 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          child: ListView(
-            children: [
-              CustomListtile(
-                title: " Some Title",
-              ),
-              // Add more todo items here
-            ],
+          child: StreamBuilder(
+            stream: _databaseService.getTodos(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CupertinoActivityIndicator());
+              }
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return Center(child: Text("No todos yet!"));
+              }
+              var todos = snapshot.data!;
+
+              return ListView.builder(
+                  itemCount: todos.length,
+                  itemBuilder: (context, index) {
+                    var todo = todos[index];
+                    return CustomListtile(
+                      title: todo['title'],
+                    );
+                  });
+            },
           ),
         ),
       ),
