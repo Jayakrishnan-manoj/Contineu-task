@@ -5,11 +5,11 @@ class AuthService {
 
   Future<String> createAccount(String email, String password) async {
     try {
-      User user =
-          (await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
-      )).user!;
+      ))
+          .user!;
       return "signed in";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -24,13 +24,13 @@ class AuthService {
     return "some error occured";
   }
 
-  Future<String> loginWithEmail(String email,String password) async {
+  Future<String> loginWithEmail(String email, String password) async {
     try {
-      User user =
-          (await FirebaseAuth.instance.signInWithEmailAndPassword(
+      User user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
-      )).user!;
+      ))
+          .user!;
       return "logged in";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -45,9 +45,11 @@ class AuthService {
     return "some error occured";
   }
 
+  Future<void> resetPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
-
-
 }

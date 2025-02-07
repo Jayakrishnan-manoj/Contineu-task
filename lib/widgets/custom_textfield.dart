@@ -33,13 +33,6 @@ class _CustomCupertinoTextFieldState extends State<CustomCupertinoTextField> {
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
       controller: _controller,

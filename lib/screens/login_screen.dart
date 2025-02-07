@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:contineu/screens/create_account_screen.dart';
+import 'package:contineu/screens/forgot_password_screen.dart';
 import 'package:contineu/screens/home_screen.dart';
 import 'package:contineu/services/auth_service.dart';
 import 'package:contineu/widgets/custom_textfield.dart';
@@ -18,6 +19,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,91 +45,117 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 30,
             ),
-            CustomCupertinoTextField(
-              hintText: "Enter Email",
-              controller: _emailController,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            CustomCupertinoTextField(
-              hintText: "Enter Password",
-              isPassword: true,
-              controller: _passwordController,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Forgot Password?",
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 14,
-                color: CupertinoColors.activeOrange,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              height: 50,
-              child: FilledButton(
-                onPressed: () async {
-                  await AuthService()
-                      .loginWithEmail(
-                          _emailController.text, _passwordController.text)
-                      .then((value) {
-                    if (value == "logged in") {
-                      Navigator.of(context).pushReplacement(
-                        CupertinoPageRoute(
-                          builder: (context) => HomeScreen(),
-                        ),
-                      );
-                    } else {
-                      print(value);
-                    }
-                  });
-                },
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                      CupertinoColors.darkBackgroundGray),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
+            _isLoading
+                ? Center(
+                    child: CupertinoActivityIndicator(
+                      color: CupertinoColors.activeOrange,
                     ),
-                  ),
-                ),
-                child: Text("Login"),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: Text.rich(TextSpan(
-                  text: 'Don\'t have an account? ',
-                  children: <InlineSpan>[
-                    TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.of(context).pushReplacement(
-                            CupertinoPageRoute(
-                              builder: (context) => CreateAccountScreen(),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomCupertinoTextField(
+                        hintText: "Enter Email",
+                        controller: _emailController,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      CustomCupertinoTextField(
+                        hintText: "Enter Password",
+                        isPassword: true,
+                        controller: _passwordController,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            builder: (context) => ResetPasswordScreen(),
+                          ),
+                        ),
+                        child: Text(
+                          "Forgot Password?",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: CupertinoColors.activeOrange,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        height: 50,
+                        child: FilledButton(
+                          onPressed: () async {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            await AuthService()
+                                .loginWithEmail(_emailController.text,
+                                    _passwordController.text)
+                                .then((value) {
+                              if (value == "logged in") {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.of(context).pushReplacement(
+                                  CupertinoPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  ),
+                                );
+                              } else {
+                                print(value);
+                              }
+                            });
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll(
+                                CupertinoColors.darkBackgroundGray),
+                            shape: WidgetStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                      text: 'Create an account',
-                      style: TextStyle(
-                          color: CupertinoColors.activeOrange,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline),
-                    )
-                  ])),
-            ),
+                          ),
+                          child: Text("Login"),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: Text.rich(TextSpan(
+                            text: 'Don\'t have an account? ',
+                            children: <InlineSpan>[
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context).pushReplacement(
+                                      CupertinoPageRoute(
+                                        builder: (context) =>
+                                            CreateAccountScreen(),
+                                      ),
+                                    );
+                                  },
+                                text: 'Create an account',
+                                style: TextStyle(
+                                    color: CupertinoColors.activeOrange,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline),
+                              )
+                            ])),
+                      ),
+                    ],
+                  ),
           ],
         ),
       ),
