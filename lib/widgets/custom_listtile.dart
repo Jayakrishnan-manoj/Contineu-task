@@ -6,10 +6,12 @@ class CustomListtile extends StatelessWidget {
     super.key,
     required this.title,
     required this.onDelete,
+    required this.onEdit,
   });
 
   final String title;
   final VoidCallback onDelete;
+  final VoidCallback onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +47,15 @@ class CustomListtile extends StatelessWidget {
                   children: [
                     CupertinoButton(
                       child: Icon(CupertinoIcons.pencil),
-                      onPressed: () {
-                        // Edit task functionality
+                      onPressed: () async {
+                        onEdit();
                       },
                     ),
                     CupertinoButton(
-                      child: Icon(CupertinoIcons.delete),
-                      onPressed: () async {
-                        onDelete();
-                      }
-                    ),
+                        child: Icon(CupertinoIcons.delete),
+                        onPressed: () async {
+                          onDelete();
+                        }),
                   ],
                 ),
               ],
