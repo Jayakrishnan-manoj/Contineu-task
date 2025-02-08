@@ -78,23 +78,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     var todo = todos[index];
                     print(todo);
-                    return CustomListtile(
-                      title: todo['title'],
-                      onDelete: () => _databaseService.removeTodo(
-                        todo['id'],
-                      ).whenComplete(() {
-                        Helpers().showCupertinoToast(context, "Task Deleted!",themeProvider.isDarkTheme);
-                      },),
-                      onEdit: () {
+                    return GestureDetector(
+                      onTap: () {
                         Navigator.of(context).push(
-                          CupertinoPageRoute(
-                            builder: (context) => AddTodoScreen(
-                              todoTitle: todo['title'],
-                              id: todo['id'],
+                            CupertinoPageRoute(
+                              builder: (context) => AddTodoScreen(
+                                todoTitle: todo['title'],
+                                id: todo['id'],
+                              ),
                             ),
-                          ),
-                        );
+                          );
                       },
+                      child: CustomListtile(
+                        title: todo['title'],
+                        onDelete: () => _databaseService.removeTodo(
+                          todo['id'],
+                        ).whenComplete(() {
+                          Helpers().showCupertinoToast(context, "Task Deleted!",themeProvider.isDarkTheme);
+                        },),
+                        onEdit: () {
+                          Navigator.of(context).push(
+                            CupertinoPageRoute(
+                              builder: (context) => AddTodoScreen(
+                                todoTitle: todo['title'],
+                                id: todo['id'],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     );
                   });
             },

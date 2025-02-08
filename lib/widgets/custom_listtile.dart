@@ -40,11 +40,14 @@ class CustomListtile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontFamily: "Lato",
-                  fontSize: 16
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontFamily: "Lato",
+                    fontSize: 16,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               Row(

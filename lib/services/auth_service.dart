@@ -40,9 +40,9 @@ class AuthService {
       }
     } catch (e) {
       print(e);
-      return "some error occured";
+      return "Please check your credentials and try again";
     }
-    return "some error occured";
+    return "Please check your credentials and try again";
   }
 
   Future<void> resetPassword(String email) async {

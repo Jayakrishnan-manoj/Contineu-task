@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:contineu/helpers/helpers.dart';
+import 'package:contineu/provider/theme_provider.dart';
 import 'package:contineu/screens/auth/create_account_screen.dart';
 import 'package:contineu/screens/auth/forgot_password_screen.dart';
 import 'package:contineu/screens/home_screen.dart';
@@ -8,6 +10,7 @@ import 'package:contineu/widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.transparent,
@@ -102,23 +106,43 @@ class _LoginScreenState extends State<LoginScreen> {
                             setState(() {
                               _isLoading = true;
                             });
-                            await AuthService()
-                                .loginWithEmail(_emailController.text,
-                                    _passwordController.text)
-                                .then((value) {
-                              if (value == "logged in") {
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                                Navigator.of(context).pushReplacement(
-                                  CupertinoPageRoute(
-                                    builder: (context) => HomeScreen(),
-                                  ),
-                                );
-                              } else {
-                                print(value);
-                              }
-                            });
+                            bool isValidEmail =
+                                Helpers().validateEmail(_emailController.text);
+                            if (!isValidEmail) {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              Helpers().showCupertinoToast(
+                                  context,
+                                  "Enter a valid email",
+                                  themeProvider.isDarkTheme);
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              return;
+                            } else {
+                              await AuthService()
+                                  .loginWithEmail(_emailController.text,
+                                      _passwordController.text)
+                                  .then((value) {
+                                if (value == "logged in") {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  Navigator.of(context).pushReplacement(
+                                    CupertinoPageRoute(
+                                      builder: (context) => HomeScreen(),
+                                    ),
+                                  );
+                                } else {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  Helpers().showCupertinoToast(context, value,
+                                      themeProvider.isDarkTheme);
+                                }
+                              });
+                            }
                           },
                           style: ButtonStyle(
                             backgroundColor: WidgetStatePropertyAll(

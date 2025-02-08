@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class Helpers {
+
   void showCupertinoToast(BuildContext context, String message, bool isDarkTheme) {
     final overlay = Overlay.of(context);
     final overlayEntry = OverlayEntry(
@@ -27,4 +28,11 @@ class Helpers {
     overlay.insert(overlayEntry);
     Future.delayed(Duration(seconds: 3), () => overlayEntry.remove());
   }
+
+   bool validateEmail(String email) {
+    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    return emailRegex.hasMatch(email);
+  }
+
+  
 }
