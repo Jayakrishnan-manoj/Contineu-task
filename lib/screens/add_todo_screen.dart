@@ -1,6 +1,8 @@
+import 'package:contineu/provider/theme_provider.dart';
 import 'package:contineu/services/database_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddTodoScreen extends StatefulWidget {
   const AddTodoScreen({super.key, this.todoTitle, this.id});
@@ -26,12 +28,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         border: null,
         backgroundColor: Colors.transparent,
         middle: Text(
-          widget.id!=null ? "Edit Task" : "Add Task",
+          widget.id != null ? "Edit Todo" : "Add Todo",
           style: TextStyle(
             fontSize: 32,
           ),
@@ -50,7 +53,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       border: Border.all(
-                        color: CupertinoColors.darkBackgroundGray,
+                        color: themeProvider.isDarkTheme
+                            ? CupertinoColors.white
+                            : CupertinoColors.darkBackgroundGray,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(10)),
@@ -88,7 +93,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   }
                 },
                 icon: const Icon(CupertinoIcons.add),
-                label: const Text("Add Note"),
+                label: Text(widget.id != null ? "Update Todo" : "Add Todo"),
               )
             ],
           ),

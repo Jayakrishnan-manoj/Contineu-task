@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         middle: Text(
-          "Contineu Tasks",
+          "Contineu Todo",
           style: TextStyle(
             fontSize: 32,
           ),

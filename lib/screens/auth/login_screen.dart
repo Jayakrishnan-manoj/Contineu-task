@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _isLoading
                 ? Center(
                     child: CupertinoActivityIndicator(
-                      color: CupertinoColors.activeOrange,
+                      color: CupertinoColors.systemIndigo,
                     ),
                   )
                 : Column(
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 14,
-                            color: CupertinoColors.activeOrange,
+                            color: CupertinoColors.systemIndigo,
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 text: 'Create an account',
                                 style: TextStyle(
-                                    color: CupertinoColors.activeOrange,
+                                    color: CupertinoColors.systemIndigo,
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline),
                               )

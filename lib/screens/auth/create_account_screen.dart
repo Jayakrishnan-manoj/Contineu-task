@@ -105,7 +105,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         },
                       text: 'Login',
                       style: TextStyle(
-                          color: CupertinoColors.activeOrange,
+                          color: CupertinoColors.systemIndigo,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline),
                     )

@@ -1,4 +1,6 @@
+import 'package:contineu/provider/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class SettingsTile extends StatelessWidget {
   const SettingsTile({
@@ -14,6 +16,7 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -21,7 +24,7 @@ class SettingsTile extends StatelessWidget {
         child: Container(
           height: 60,
           decoration: BoxDecoration(
-            color: CupertinoColors.white,
+            color:themeProvider.isDarkTheme ? CupertinoColors.darkBackgroundGray : CupertinoColors.white,
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: [
               BoxShadow(

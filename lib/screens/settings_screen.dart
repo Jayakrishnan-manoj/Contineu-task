@@ -1,8 +1,10 @@
+import 'package:contineu/provider/theme_provider.dart';
 import 'package:contineu/screens/auth/login_screen.dart';
 import 'package:contineu/services/auth_service.dart';
 import 'package:contineu/widgets/settings_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -12,8 +14,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.transparent,
@@ -50,8 +54,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SettingsTile(
                   onTap: null,
                   trailing: CupertinoSwitch(
-                    value: true,
-                    onChanged: (_) {},
+                    activeColor: CupertinoColors.systemBlue,
+                    value: themeProvider.isDarkTheme,
+                    onChanged: (value) {
+                      themeProvider.toggleTheme();
+                    },
                   ),
                   title: "Dark Mode",
                 )
