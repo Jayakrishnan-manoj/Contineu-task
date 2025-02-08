@@ -17,7 +17,7 @@ class ThemeProvider extends ChangeNotifier {
   //   return prefs.getBool("isDarkTheme") ?? false;
   // }
 
-    // Load theme from SharedPreferences
+  // Load theme from SharedPreferences
   Future<void> loadTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _isDarkTheme = prefs.getBool("isDarkTheme") ?? false;
@@ -32,13 +32,15 @@ class ThemeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   static final lightAppTheme = CupertinoThemeData(
     brightness: Brightness.light,
     primaryColor: CupertinoColors.systemBlue,
     barBackgroundColor: CupertinoColors.systemGrey6,
     scaffoldBackgroundColor: CupertinoColors.extraLightBackgroundGray,
-    textTheme: CupertinoTextThemeData(primaryColor: CupertinoColors.black),
+    textTheme: CupertinoTextThemeData(
+      primaryColor: CupertinoColors.black,
+      textStyle: TextStyle(fontFamily: "Lato", color: CupertinoColors.black),
+    ),
   );
 
   static final darkAppTheme = CupertinoThemeData(
@@ -46,6 +48,12 @@ class ThemeProvider extends ChangeNotifier {
     primaryColor: CupertinoColors.systemBlue,
     barBackgroundColor: CupertinoColors.black,
     scaffoldBackgroundColor: Colors.black54,
-    textTheme: CupertinoTextThemeData(primaryColor: CupertinoColors.white),
+    textTheme: CupertinoTextThemeData(
+      primaryColor: CupertinoColors.white,
+      textStyle: TextStyle(
+        fontFamily: "Lato",
+        color: CupertinoColors.white,
+      ),
+    ),
   );
 }

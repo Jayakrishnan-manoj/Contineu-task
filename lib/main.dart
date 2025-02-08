@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
     return CupertinoApp(
         debugShowCheckedModeBanner: false,
         title: "Cupertino",
+        
         theme: themeProvider.isDarkTheme
             ? ThemeProvider.darkAppTheme
             : ThemeProvider.lightAppTheme,

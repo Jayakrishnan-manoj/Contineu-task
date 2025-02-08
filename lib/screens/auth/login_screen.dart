@@ -30,7 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
         border: null,
         leading: Text(
           "LOGIN",
-          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Lato",
+          ),
         ),
       ),
       child: Padding(
@@ -81,7 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 14,
-                            color: CupertinoColors.systemIndigo,
+                            color: CupertinoColors.systemBlue,
+                            fontFamily: "Lato",
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -126,7 +131,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          child: Text("Login"),
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                              fontFamily: "Lato",
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -148,9 +158,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 text: 'Create an account',
                                 style: TextStyle(
-                                    color: CupertinoColors.systemIndigo,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline),
+                                  color: CupertinoColors.systemBlue,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                  fontFamily: "Lato",
+                                ),
                               )
                             ])),
                       ),

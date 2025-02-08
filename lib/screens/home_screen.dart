@@ -1,9 +1,12 @@
+import 'package:contineu/helpers/helpers.dart';
+import 'package:contineu/provider/theme_provider.dart';
 import 'package:contineu/screens/add_todo_screen.dart';
 import 'package:contineu/screens/settings_screen.dart';
 import 'package:contineu/services/database_service.dart';
 import 'package:contineu/widgets/custom_listtile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -17,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         border: null,
@@ -37,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           "Contineu Todo",
           style: TextStyle(
             fontSize: 32,
+            fontFamily: "Lato",
           ),
         ),
         trailing: IconButton(
@@ -62,7 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Center(child: CupertinoActivityIndicator());
               }
               if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text("No todos yet!"));
+                return Center(child: Text("No todos yet!", style: TextStyle(
+                      fontFamily: "Lato",
+                    ),));
               }
               var todos = snapshot.data!;
 
@@ -75,7 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: todo['title'],
                       onDelete: () => _databaseService.removeTodo(
                         todo['id'],
-                      ),
+                      ).whenComplete(() {
+                        Helpers().showCupertinoToast(context, "Task Deleted!",themeProvider.isDarkTheme);
+                      },),
                       onEdit: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute(

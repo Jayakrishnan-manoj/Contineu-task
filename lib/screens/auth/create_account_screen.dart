@@ -25,7 +25,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         border: null,
         leading: Text(
           "SIGN UP",
-          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold,fontFamily: "Lato",),
         ),
       ),
       child: Padding(
@@ -84,7 +84,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     ),
                   ),
                 ),
-                child: Text("Sign Up"),
+                child: Text("Sign Up", style: TextStyle(
+                      fontFamily: "Lato",
+                    ),),
               ),
             ),
             SizedBox(
@@ -105,9 +107,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         },
                       text: 'Login',
                       style: TextStyle(
-                          color: CupertinoColors.systemIndigo,
+                          color: CupertinoColors.systemBlue,
                           fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline),
+                          decoration: TextDecoration.underline,fontFamily: "Lato",),
                     )
                   ])),
             ),

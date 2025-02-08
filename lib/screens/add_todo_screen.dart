@@ -1,3 +1,4 @@
+import 'package:contineu/helpers/helpers.dart';
 import 'package:contineu/provider/theme_provider.dart';
 import 'package:contineu/services/database_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,7 +35,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         border: null,
         backgroundColor: Colors.transparent,
         middle: Text(
-          widget.id != null ? "Edit Todo" : "Add Todo",
+          widget.id != null ? "Edit Task" : "Add Task",
           style: TextStyle(
             fontSize: 32,
           ),
@@ -79,7 +80,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       await _databaseService
                           .editTodo(_controller.text, widget.id!)
                           .whenComplete(() {
+
                         Navigator.of(context).pop();
+                        Helpers().showCupertinoToast(context, "Task updated!",themeProvider.isDarkTheme);
                         _controller.clear();
                       });
                     }
@@ -88,12 +91,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         .addTodo(_controller.text)
                         .whenComplete(() {
                       _controller.clear();
+                      Helpers().showCupertinoToast(context, "Task added!",themeProvider.isDarkTheme);
                       Navigator.of(context).pop();
                     });
                   }
                 },
                 icon: const Icon(CupertinoIcons.add),
-                label: Text(widget.id != null ? "Update Todo" : "Add Todo"),
+                label: Text(widget.id != null ? "Update Task" : "Add Task"),
               )
             ],
           ),

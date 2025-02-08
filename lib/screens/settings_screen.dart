@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         border: null,
         middle: Text(
           "Settings",
-          style: TextStyle(fontSize: 32),
+          style: TextStyle(fontSize: 32,fontFamily: "Lato",),
         ),
       ),
       child: SafeArea(

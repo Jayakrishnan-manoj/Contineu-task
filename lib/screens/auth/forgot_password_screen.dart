@@ -16,7 +16,11 @@ class ResetPasswordScreen extends StatelessWidget {
         border: null,
         leading: Text(
           "RESET PASSWORD",
-          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Lato",
+          ),
         ),
       ),
       child: Padding(
@@ -26,7 +30,11 @@ class ResetPasswordScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                  "Please provide the email so that we can send an email to you to reset your password"),
+                "Please provide the email so that we can send an email to you to reset your password",
+                style: TextStyle(
+                  fontFamily: "Lato",
+                ),
+              ),
               SizedBox(
                 height: 30,
               ),
@@ -34,7 +42,9 @@ class ResetPasswordScreen extends StatelessWidget {
                 controller: _emailController,
                 hintText: "Enter your email",
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               SizedBox(
                 width: MediaQuery.sizeOf(context).width,
                 height: 50,
@@ -58,7 +68,12 @@ class ResetPasswordScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: Text("Send Email"),
+                  child: Text(
+                    "Send Email",
+                    style: TextStyle(
+                      fontFamily: "Lato",
+                    ),
+                  ),
                 ),
               ),
             ]),

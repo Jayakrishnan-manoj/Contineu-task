@@ -22,7 +22,9 @@ class CustomListtile extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color:themeProvider.isDarkTheme ? CupertinoColors.darkBackgroundGray : CupertinoColors.white,
+          color: themeProvider.isDarkTheme
+              ? CupertinoColors.darkBackgroundGray
+              : CupertinoColors.white,
           borderRadius: BorderRadius.circular(10.0),
           boxShadow: [
             BoxShadow(
@@ -34,12 +36,17 @@ class CustomListtile extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title),
+              Text(
+                title,
+                style: TextStyle(
+                  fontFamily: "Lato",
+                  fontSize: 16
+                ),
+              ),
               Row(
                 children: [
                   CupertinoButton(
@@ -49,7 +56,10 @@ class CustomListtile extends StatelessWidget {
                     },
                   ),
                   CupertinoButton(
-                      child: Icon(CupertinoIcons.delete,color: CupertinoColors.systemRed,),
+                      child: Icon(
+                        CupertinoIcons.delete,
+                        color: CupertinoColors.systemRed,
+                      ),
                       onPressed: () async {
                         onDelete();
                       }),

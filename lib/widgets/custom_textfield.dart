@@ -41,7 +41,10 @@ class _CustomCupertinoTextFieldState extends State<CustomCupertinoTextField> {
       keyboardType: widget.keyboardType,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       placeholder: widget.hintText,
-      placeholderStyle: TextStyle(color: CupertinoColors.systemGrey),
+      placeholderStyle: TextStyle(
+        color: CupertinoColors.systemGrey,
+        fontFamily: "Lato",
+      ),
       clearButtonMode: OverlayVisibilityMode.editing,
       suffix: widget.isPassword
           ? GestureDetector(
